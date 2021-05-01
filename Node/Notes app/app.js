@@ -48,6 +48,7 @@ else if (command === "remove")
 	console.log(" removing note!")
 }
 
+const notes = require("./notes.js")
 const yargs = require("yargs")
 // yargs versions
 yargs.version("1.1.0")
@@ -57,9 +58,29 @@ yargs.command(
 {
 	command:"add",
 	describe:"add a new note",
-	handler:function()
+	builder:
 	{
-		console.log("adding new note!")
+		title:
+		{
+			describe:"Note title",
+			demandOption:true,
+			type:"string"
+		},
+
+		price:
+		{
+			describe:"Note title",
+			demandOption:true,
+			// type:"integar"
+		}
+	},
+	handler:function(argv)
+	{
+		// console.log("adding new note!", argv)
+		// console.log("Title : "+ argv.title)
+		// console.log("price : "+ argv.price)
+		notes.addNote(argv.title,argv.price)
+
 	}
 })
 
@@ -78,7 +99,7 @@ yargs.command(
 	describe:"list a new note",
 	handler:function()
 	{
-		console.log("listing new note!")
+		console.log("listing out notes!")
 	}
 })
 
@@ -92,4 +113,5 @@ yargs.command(
 	}
 })
 
-console.log(yargs.argv)
+// console.log(yargs.argv)
+yargs.parse()
