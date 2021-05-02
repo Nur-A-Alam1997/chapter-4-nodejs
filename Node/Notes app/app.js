@@ -28,7 +28,7 @@
 
 // using chalk library 
 const chalk = require("chalk")
-console.log(chalk.green("success!!!"))
+// console.log(chalk.green("success!!!"))
 // console.log(chalk.blue("success!!!"))
 // console.log(chalk.red("success!!!"))
 // console.log(chalk.grey("success!!!"))
@@ -37,16 +37,16 @@ console.log(chalk.green("success!!!"))
 
 // getting input
 // console.log(process.argv[2])
-const command = process.argv[2]
+// const command = process.argv[2]
 
-if (command === "add")
-{
-	console.log("adding note!")
-}
-else if (command === "remove")
-{
-	console.log(" removing note!")
-}
+// if (command === "add")
+// {
+// 	console.log("adding note!")
+// }
+// else if (command === "remove")
+// {
+// 	console.log(" removing note!")
+// }
 
 const notes = require("./notes.js")
 const yargs = require("yargs")
@@ -88,18 +88,33 @@ yargs.command(
 {
 	command:"remove",
 	describe:"remove a new note",
-	handler:function()
+	builder:
+		{
+			title:
+			{
+				describe:"Note title",
+				demandOption:true,
+				type:"string"
+			}
+		},
+
+
+
+	handler:function(argv)
 	{
-		console.log("removing new note!")
+		// console.log("removing note!")
+		notes.removeNote(argv.title)
 	}
 })
+
 yargs.command(
 {
 	command:"list",
 	describe:"list a new note",
 	handler:function()
 	{
-		console.log("listing out notes!")
+		// console.log("listing out notes!")
+		notes.listNote()
 	}
 })
 
@@ -107,9 +122,19 @@ yargs.command(
 {
 	command:"read",
 	describe:"read a new note",
-	handler:function()
+	builder:
+		{
+			title:
+			{
+				describe:"Note title",
+				demandOption:true,
+				type:"string"
+			}
+		},
+	handler:function(argv)
 	{
-		console.log("read new note!")
+		// console.log("read new note!")
+		notes.readNote(argv.title)
 	}
 })
 
